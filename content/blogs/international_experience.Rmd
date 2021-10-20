@@ -1,15 +1,14 @@
 ---
-categories:  
-- ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
-- ""
-date: "2021-10-20"
-description: This is my international experience # the title that will show up once someone gets to this page
-draft: false
-image: spices.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
-
-keywords: ""
-slug: international_experience # slug is the shorthand URL address... no spaces plz
-title: Here is where I've been for the past few years 
+title: "This is where I've been..."
+date: '2021-10-20'
+description: This is my international experience
+draft: no
+image: spices.jpg
+keywords: ''
+slug: international_experience
+categories:
+- ''
+- ''
 ---
 
 ```{r, setup, echo=FALSE}
@@ -27,5 +26,6 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 ```
+
 
 
