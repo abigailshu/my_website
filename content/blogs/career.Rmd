@@ -1,0 +1,36 @@
+---
+title: "Career"
+date: '2021-10-20'
+description: My potential career path
+draft: no
+image: ''
+keywords: ''
+slug: career
+categories:
+- ''
+- ''
+---
+
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+I will be starting my career as an investment banking analyst at an elite boutique in Hong Kong. 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/central.jpg",error =FALSE)     
+```
+
+

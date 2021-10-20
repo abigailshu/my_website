@@ -27,4 +27,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+***
+Here is a link to my CV: 
+https://drive.google.com/file/d/1eQ_E-NXqjfc2jTuOIvZZ0xnVOIyTFHS3/view?usp=sharing
 

@@ -7,7 +7,7 @@ disqusShortname: ''
 params:
   banner:
     buttonText: Explore 
-    subtitle: Welcome to my portfolio website for LBS Data Analytics for Finance 
+    subtitle: My portfolio website for LBS Data Analytics for Finance 
     title: Welcome to Abigail's portfolio website 
   blog: {}
   contact:
@@ -36,7 +36,7 @@ params:
     copyright: Abigail Shu 
     enable: yes
     quicklinks:
-      - alt: HTML5 UP
+      - alt: HTML 5 UP 
         text: 'Design: '
         url: https://www.html5up.net
     social:
@@ -65,16 +65,16 @@ params:
    #   - name: Log In
     #    url: '#'
     links:
+      - name: Home 
+        url: '#'
       - name: About me 
         url: blogs/about_me
-      - name: CV
-        url: blogs/cv
-      - name: International Experience
-        url: blogs/international_experience
+      - name: Career 
+        url: blogs/career 
       - name: Coding
         url: blogs/coding
     menu: Menu
-    subtitle: By HTML5 Up
+    subtitle: By Abigail Shu 
     title: Forty
   tiles:
     enable: yes
@@ -88,13 +88,13 @@ params:
         title: CV 
         url: blogs/cv
       - image: burj.jpg
-        subtitle: Places I lived in the past 5 years 
+        subtitle: Places I've lived in the past 5 years 
         title: International Experience  
         url: blogs/international_experience
-      - image: code.png
-        subtitle: Graphs I worked in R 
-        title: Coding 
-        url: blogs/coding
+      - image: afu3.jpeg
+        subtitle: My dogs 
+        title: Furry Friends 
+        url: blogs/furry_friends
     #  - image: pic05.jpg
     #    subtitle: Graphs I worked on in R 
       #  title: 
@@ -108,4 +108,4 @@ params:
     enable: yes
     subtitle: ~Abigail 
     title: Thanks for visiting this site!
-    url: '#'
+    url: blogs/about_me
