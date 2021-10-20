@@ -14,3 +14,77 @@ categories:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>These are a few graphs I worked on as part of a homework for the Data Analytics in Finance course:</p>
+<hr />
+<p>First, we will load the yield curve data file that contains data on the yield curve since 1960-01-01</p>
+<pre class="r"><code>yield_curve &lt;- read_csv(here::here(&quot;data&quot;, &quot;yield_curve.csv&quot;))
+
+glimpse(yield_curve)</code></pre>
+<pre><code>## Rows: 6,884
+## Columns: 5
+## $ date      &lt;date&gt; 1960-01-01, 1960-02-01, 1960-03-01, 1960-04-01, 1960-05-01,…
+## $ series_id &lt;chr&gt; &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS…
+## $ value     &lt;dbl&gt; 4.35, 3.96, 3.31, 3.23, 3.29, 2.46, 2.30, 2.30, 2.48, 2.30, …
+## $ maturity  &lt;chr&gt; &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, …
+## $ duration  &lt;chr&gt; &quot;3-Month Treasury Bill&quot;, &quot;3-Month Treasury Bill&quot;, &quot;3-Month T…</code></pre>
+<p>Our dataframe <code>yield_curve</code> has five columns (variables):</p>
+<ul>
+<li><code>date</code>: already a date object</li>
+<li><code>series_id</code>: the FRED database ticker symbol</li>
+<li><code>value</code>: the actual yield on that date</li>
+<li><code>maturity</code>: a short hand for the maturity of the bond</li>
+<li><code>duration</code>: the duration, written out in all its glory!</li>
+</ul>
+<div id="plotting-the-yield-curve" class="section level2">
+<h2>Plotting the yield curve</h2>
+<div id="yields-on-us-rates-by-duration-since-1960" class="section level3">
+<h3>Yields on US rates by duration since 1960</h3>
+<pre class="r"><code>yield_curve  %&gt;% 
+  mutate(duration=factor(duration, levels=c(&quot;3-Month Treasury Bill&quot;, &quot;6-Month Treasury Bill&quot;,&quot;1-Year Treasury Rate&quot;,&quot;2-Year Treasury Rate&quot;,&quot;3-Year Treasury Rate&quot;,&quot;5-Year Treasury Rate&quot;,&quot;7-Year Treasury Rate&quot;,&quot;10-Year Treasury Rate&quot;,&quot;20-Year Treasury Rate&quot;,&quot;30-Year Treasury Rate&quot;))) %&gt;% 
+  
+  ggplot(aes(x=date, y=value, color=duration)) +
+  geom_line()+
+  facet_wrap(~ duration, ncol=2)+
+  labs(title=&quot;Yields on U.S. Treasury rates since 1960&quot;,
+       y=&quot;Yield(%)&quot;,
+       x=&quot;Date&quot;,
+       caption=&quot;Source: St. Louis Federal Reserve Economic Database (FRED)&quot;)+
+  theme_bw()+
+  theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="/blogs/coding_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="monthly-yields-on-us-rates-by-duration-since-1999-on-a-year-by-year-basis" class="section level3">
+<h3>Monthly yields on US rates by duration since 1999 on a year-by-year basis</h3>
+<pre class="r"><code>yield_curve_2 &lt;- yield_curve  %&gt;%
+  mutate(year=factor(year(date)), 
+         maturity=factor(maturity, levels=c(&quot;3m&quot;, &quot;6m&quot;,&quot;1y&quot;,&quot;2y&quot;,&quot;3y&quot;,&quot;5y&quot;,&quot;7y&quot;,&quot;10y&quot;,&quot;20y&quot;,&quot;30y&quot;)))
+
+yield_curve_2 %&gt;%
+  filter(date&gt;=&quot;1999-01-01&quot;) %&gt;% 
+  ggplot(aes(x=maturity, y=value, group=date, color=year)) +
+  geom_line()+
+  facet_wrap(~ year, ncol=4)+
+  labs(title=&quot;U.S. yield curve&quot;,
+       y=&quot;Yield(%)&quot;,
+       x=&quot;Maturity&quot;,
+       caption=&quot;Source: St. Louis Federal Reserve Economic Database (FRED)&quot;)+
+  theme_bw()+
+  theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="/blogs/coding_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="month-and-10-year-yields-since-1999" class="section level3">
+<h3>3-month and 10-year yields since 1999</h3>
+<pre class="r"><code>yield_curve_3 &lt;- yield_curve %&gt;% 
+  filter(date&gt;=&quot;1999-01-01&quot;, maturity ==&quot;3m&quot; | maturity ==&quot;10y&quot;) %&gt;%
+  ggplot(aes(x=date, y=value, color=duration, group=maturity))+
+  geom_line()+
+  theme_bw()+
+  theme(legend.title=element_blank())+
+  labs(title=&quot;Yields on 3-Month and 10-Year U.S. Treasury Rates since 1999&quot;,
+       y=&quot;Yield(%)&quot;,
+       x=&quot;Date&quot;,
+       caption=&quot;Source: St. Louis Federal Reserve Economic Database (FRED)&quot;)
+yield_curve_3</code></pre>
+<p><img src="/blogs/coding_files/figure-html/treasury_rates-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+</div>

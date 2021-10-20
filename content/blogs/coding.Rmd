@@ -28,4 +28,100 @@ knitr::opts_chunk$set(
 ```
 
 
+```{r load-libraries, echo=FALSE, warning=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(kableExtra)
+```
+
+These are a few graphs I worked on as part of a homework for the Data Analytics in Finance course:
+
+***
+First, we will load the yield curve data file that contains data on the yield curve since 1960-01-01
+
+```{r download_historical_yield_curve, warning=FALSE}
+
+yield_curve <- read_csv(here::here("data", "yield_curve.csv"))
+
+glimpse(yield_curve)
+```
+
+Our dataframe `yield_curve` has five columns (variables):
+
+- `date`: already a date object
+- `series_id`: the FRED database ticker symbol
+- `value`: the actual yield on that date
+- `maturity`: a short hand for the maturity of the bond
+- `duration`: the duration, written out in all its glory!
+
+
+## Plotting the yield curve
+
+### Yields on US rates by duration since 1960
+
+```{r}
+yield_curve  %>% 
+  mutate(duration=factor(duration, levels=c("3-Month Treasury Bill", "6-Month Treasury Bill","1-Year Treasury Rate","2-Year Treasury Rate","3-Year Treasury Rate","5-Year Treasury Rate","7-Year Treasury Rate","10-Year Treasury Rate","20-Year Treasury Rate","30-Year Treasury Rate"))) %>% 
+  
+  ggplot(aes(x=date, y=value, color=duration)) +
+  geom_line()+
+  facet_wrap(~ duration, ncol=2)+
+  labs(title="Yields on U.S. Treasury rates since 1960",
+       y="Yield(%)",
+       x="Date",
+       caption="Source: St. Louis Federal Reserve Economic Database (FRED)")+
+  theme_bw()+
+  theme(legend.position="none")
+
+```
+
+
+### Monthly yields on US rates by duration since 1999 on a year-by-year basis
+
+```{r}
+yield_curve_2 <- yield_curve  %>%
+  mutate(year=factor(year(date)), 
+         maturity=factor(maturity, levels=c("3m", "6m","1y","2y","3y","5y","7y","10y","20y","30y")))
+
+yield_curve_2 %>%
+  filter(date>="1999-01-01") %>% 
+  ggplot(aes(x=maturity, y=value, group=date, color=year)) +
+  geom_line()+
+  facet_wrap(~ year, ncol=4)+
+  labs(title="U.S. yield curve",
+       y="Yield(%)",
+       x="Maturity",
+       caption="Source: St. Louis Federal Reserve Economic Database (FRED)")+
+  theme_bw()+
+  theme(legend.position="none")
+
+```
+
+
+### 3-month and 10-year yields since 1999
+
+```{r treasury_rates}
+
+yield_curve_3 <- yield_curve %>% 
+  filter(date>="1999-01-01", maturity =="3m" | maturity =="10y") %>%
+  ggplot(aes(x=date, y=value, color=duration, group=maturity))+
+  geom_line()+
+  theme_bw()+
+  theme(legend.title=element_blank())+
+  labs(title="Yields on 3-Month and 10-Year U.S. Treasury Rates since 1999",
+       y="Yield(%)",
+       x="Date",
+       caption="Source: St. Louis Federal Reserve Economic Database (FRED)")
+yield_curve_3
+```
 

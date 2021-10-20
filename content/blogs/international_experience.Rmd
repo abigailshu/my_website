@@ -3,7 +3,7 @@ title: "This is where I've been..."
 date: '2021-10-20'
 description: This is my international experience
 draft: no
-image: spices.jpg
+image: ''
 keywords: ''
 slug: international_experience
 categories:
@@ -27,5 +27,49 @@ knitr::opts_chunk$set(
 )
 ```
 
+Here's a glimpse of a few cities I visited in the past few years
 
+***
+
+Abu Dhabi - where I lived for almost 4 years: 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/louvre_AD.jpg",error =FALSE)     
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/mosque.jpg",error =FALSE)     
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/Al_ain.jpg",error =FALSE)     
+```
+
+My trip to Jordan in 2017: 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/jordan.jpeg",error =FALSE)     
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/deadsea.JPG",error =FALSE)     
+```
+
+Trip to Istanbul: 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/istanbul.JPG",error =FALSE)     
+```
+
+Visiting NYU Prague: 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/prague.jpeg",error =FALSE)     
+```
+
+From my 3 weeks in NYU Florence 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/florence.JPG",error =FALSE)     
+```
+
+Spent a semester in NYU London 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::include_graphics("/img/london.JPG",error =FALSE)     
+```
 
